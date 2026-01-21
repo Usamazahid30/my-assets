@@ -1,0 +1,18 @@
+name: Purge jsDelivr Cache
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'banner/**'
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge jsDelivr cache
+        run: |
+          curl -s "https://purge.jsdelivr.net/gh/Usamazahid30/my-assets@main/banner/banners.json"
+          curl -s "https://purge.jsdelivr.net/gh/Usamazahid30/my-assets@main/banner/web-banner.jpg"
+          curl -s "https://purge.jsdelivr.net/gh/Usamazahid30/my-assets@main/banner/mobile-banner.jpg"
+          echo "Cache purged successfully!"
