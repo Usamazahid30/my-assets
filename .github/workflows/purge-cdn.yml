@@ -1,18 +1,43 @@
-name: Purge jsDelivr Cache
-
+name: Deploy Banner Assets
 on:
   push:
-    branches: [main]
     paths:
-      - 'banner/**'
-
+      - "banner-src/**" # Trigger ONLY when files in this folder change
+permissions:
+  contents: write # Required to push the new version folder back to the repo
 jobs:
-  purge:
+  deploy-version:
     runs-on: ubuntu-latest
     steps:
-      - name: Purge jsDelivr cache
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Generate Version ID
+        id: version
+        # Creates a unique version ID based on timestamp (e.g., v1716301234)
+        run: echo "id=v$(date +%s)" >> $GITHUB_OUTPUT
+      - name: Create New Version Folder
         run: |
-          curl -s "https://purge.jsdelivr.net/gh/Usamazahid30/my-assets@main/banner/banners.json"
-          curl -s "https://purge.jsdelivr.net/gh/Usamazahid30/my-assets@main/banner/web-banner.jpg"
-          curl -s "https://purge.jsdelivr.net/gh/Usamazahid30/my-assets@main/banner/mobile-banner.jpg"
-          echo "Cache purged successfully!"
+          VERSION=${{ steps.version.outputs.id }}
+          echo "Deploying version: $VERSION"
+
+          # Create the version directory inside 'banner'
+          mkdir -p banner/$VERSION
+
+          # Copy assets from source to the new version folder
+          cp -r banner-src/* banner/$VERSION/
+      - name: Update version.json
+        run: |
+          VERSION=${{ steps.version.outputs.id }}
+
+          # Write the new version ID to version.json
+          echo "{ \"bannerVersion\": \"$VERSION\" }" > banner/version.json
+      - name: Commit and Push
+        run: |
+          VERSION=${{ steps.version.outputs.id }}
+
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+
+          git add banner/
+          git commit -m "Deploy banner assets: $VERSION"
+          git push
