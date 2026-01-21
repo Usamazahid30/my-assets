@@ -2,8 +2,8 @@
   "banners": [
     {
       "id": 1,
-      "desktopImage": "/banner/web-banner.jpg",
-      "mobileImage": "/banner/mobile-banner.jpg",
+      "desktopImage": "/banner/web-banner-v2.jpg",
+      "mobileImage": "/banner/mobile-banner-v2.jpg",
       "alt": "PSL 10 Banner",
       "link": ""
     }
