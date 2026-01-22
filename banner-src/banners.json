@@ -2,8 +2,8 @@
   "banners": [
     {
       "id": 1,
-      "desktopImage": "web-banner-v2.jpg",
-      "mobileImage": "mobile-banner-v2.jpg",
+      "desktopImage": "web-banner.jpg",
+      "mobileImage": "mobile-banner.jpg",
       "alt": "Pak vs Aus",
       "link": ""
     }
