@@ -41,3 +41,8 @@ jobs:
           git add banner/
           git commit -m "Deploy banner assets: $VERSION"
           git push
+
+      - name: Purge version.json Cache
+        run: |
+          # Force jsDelivr to update its cache for the pointer file immediately
+          curl -I https://purge.jsdelivr.net/gh/${{ github.repository }}@main/banner/version.json
