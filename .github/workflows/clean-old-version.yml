@@ -7,7 +7,8 @@ on:
         description: "How many latest versions to keep?"
         required: true
         default: "5"
-
+permissions:
+  contents: write
 jobs:
   cleanup:
     runs-on: ubuntu-latest
@@ -15,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Show cleanup config
         run: |
