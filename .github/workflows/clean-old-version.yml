@@ -25,10 +25,10 @@ jobs:
           KEEP=${{ github.event.inputs.keep_versions }}
 
           echo "Finding version folders..."
-          ls banners || exit 0
+          ls banner || exit 0
 
           echo "Deleting old versions..."
-          ls -dt banners/v* | tail -n +$((KEEP+1)) | xargs -r rm -rf
+          ls -dt banner/v* | tail -n +$((KEEP+1)) | xargs -r rm -rf
 
           echo "Cleanup completed ✅"
 
