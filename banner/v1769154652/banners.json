@@ -1,0 +1,12 @@
+{
+  "banners": [
+    {
+      "id": 1,
+      "desktopImage": "web-banner-v4.jpg",
+      "mobileImage": "mobile-banner-v4.jpg",
+      "alt": "Pak vs Aus",
+      "link": ""
+    }
+  ],
+  "ticker": "ticker updated"
+}
