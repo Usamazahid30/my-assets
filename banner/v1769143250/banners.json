@@ -1,0 +1,12 @@
+{
+  "banners": [
+    {
+      "id": 1,
+      "desktopImage": "web-banner-v3.jpg",
+      "mobileImage": "mobile-banner-v3.jpg",
+      "alt": "Pak vs Aus",
+      "link": ""
+    }
+  ],
+  "ticker": "Dear Valued Customers, please be advised that the ticket purchase limit for each match is capped at a maximum of 25 per CNIC/Passport/Mobile #, in accordance with PCB Policy."
+}
