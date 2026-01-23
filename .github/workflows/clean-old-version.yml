@@ -1,0 +1,41 @@
+name: CDN Asset Cleanup (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      keep_versions:
+        description: "How many latest versions to keep?"
+        required: true
+        default: "5"
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show cleanup config
+        run: |
+          echo "Keeping latest ${{ github.event.inputs.keep_versions }} versions"
+
+      - name: Cleanup old assets
+        run: |
+          KEEP=${{ github.event.inputs.keep_versions }}
+
+          echo "Finding version folders..."
+          ls banners || exit 0
+
+          echo "Deleting old versions..."
+          ls -dt banners/v* | tail -n +$((KEEP+1)) | xargs -r rm -rf
+
+          echo "Cleanup completed ✅"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Manual CDN cleanup"
+          git push || echo "Nothing to commit"
